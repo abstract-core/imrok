@@ -1,3 +1,7 @@
+cache/
+public/
+src/data
+
 # build output
 dist/
 
