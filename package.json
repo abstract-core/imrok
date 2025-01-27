@@ -1,15 +1,19 @@
 {
   "name": "imrok-astro",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "start": "astro dev",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "style": "npx sass src/styles/index.scss public/style.css --load-path=node_modules/nebula-atoms-astro/styles"
   },
   "dependencies": {
-    "astro": "^5.1.1"
+    "astro": "^5.1.1",
+    "nebula-atoms-astro": "file:../nebula-atoms-astro",
+    "nebula-genesis": "^2.0.1",
+    "sass": "^1.83.4"
   }
 }

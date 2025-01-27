@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
+import Layout from "nebula-atoms-astro/Layout";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -12,7 +12,12 @@ export async function getStaticPaths() {
         .replace(/é/g, "e"),
       slug: post.data.slug,
     },
-    props: { post },
+    props: {
+      post: {
+        ...post,
+        rendered: post.rendered,
+      },
+    },
   }));
 }
 

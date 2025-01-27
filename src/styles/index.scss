@@ -1,0 +1,45 @@
+@use "core";
+
+:root {
+  --deep: #433869;
+  --psik: #a735ff;
+  --psank: #d5b8ff;
+  --aibs: #ffcd5c;
+  --light: #f8f9fa;
+}
+
+@font-face {
+  font-family: "pangaia";
+  src: url("/fonts/PPPangaia-Bold.otf");
+}
+
+@font-face {
+  font-family: "open";
+  src: url("/fonts/OpenSans-Regular.ttf");
+}
+
+body {
+  font-family: "open";
+  background-color: var(--deep);
+  color: var(--light);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "pangaia";
+}
+
+#navbar {
+  > a {
+    color: var(--aibs);
+    font-family: "pangaia";
+  }
+}
+
+footer {
+  background: var(--psik);
+}

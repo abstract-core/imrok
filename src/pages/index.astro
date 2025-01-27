@@ -1,20 +1,12 @@
 ---
-import { getCollection } from "astro:content";
-import Layout from "../layouts/Layout.astro";
+import { render } from "astro:content";
+import { getEntry } from "astro:content";
+import Layout from "nebula-atoms-astro/Layout";
 
-const posts = await getCollection("posts");
+const page = await getEntry("pages", "accueil-accueillant")!;
+const { Content } = await render(page);
 ---
 
-<Layout title="Bienvenue">
-  <body>
-    {
-      posts.map(({ data: post }) => (
-        <a
-          href={`/${post["Type de contenu"].slice(3).toLowerCase().replace(/é/g, "e")}/${post.slug}`}
-        >
-          {post.Name}
-        </a>
-      ))
-    }
-  </body>
+<Layout title={page.data.Name}>
+  <Content />
 </Layout>
