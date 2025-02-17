@@ -1,31 +1,51 @@
 ---
+import { extendHtml } from "nebula-atoms-astro/extendHtml";
 import { render } from "astro:content";
 import { getCollection } from "astro:content";
-import Layout from "nebula-atoms-astro/Layout";
-import Navbar from "../components/Navbar.astro";
+import CustomLayout from "../layouts/CustomLayout.astro";
+import { postsToHtml } from "../helpers/postsToHtml";
+import { sortPostsByDecreasingDate } from "../helpers/sortPostsByDecreasingDate";
 
 export async function getStaticPaths() {
   const pages = await getCollection("pages");
-  return pages
-    .filter(({ data }) => data.Url.slice(1))
-    .map((page) => ({
-      params: {
-        slug: page.data.Url.slice(1),
-      },
-      props: {
-        page: {
-          ...page,
-          rendered: page.rendered,
+  return Promise.all(
+    pages
+      .filter(({ data }) => data.Url.slice(1))
+      .map(async (page) => ({
+        params: {
+          slug: page.data.Url.slice(1),
         },
-      },
-    }));
+        props: {
+          page: {
+            ...page,
+            rendered: {
+              ...page.rendered,
+              html: extendHtml(
+                page.rendered!.html,
+                page.id === "tous-les-articles"
+                  ? [
+                      [
+                        "tous-les-articles",
+                        postsToHtml(
+                          sortPostsByDecreasingDate(
+                            await getCollection("posts")
+                          )
+                        ),
+                      ],
+                    ]
+                  : undefined
+              ),
+            },
+          },
+        },
+      }))
+  );
 }
 
 const { page } = Astro.props;
 const { Content } = await render(page);
 ---
 
-<Layout title={page.data.Name}>
-  <Navbar slot="navbar" />
+<CustomLayout title={page.data.Name}>
   <Content />
-</Layout>
+</CustomLayout>

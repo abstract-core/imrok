@@ -1,12 +1,21 @@
 ---
 import { render } from "astro:content";
 import { getEntry } from "astro:content";
-import Layout from "nebula-atoms-astro/Layout";
+import CustomLayout from "../layouts/CustomLayout.astro";
+import { extendHtml } from "nebula-atoms-astro/extendHtml";
+import { getCollection } from "astro:content";
+import { postsToHtml } from "../helpers/postsToHtml";
+import { sortPostsByDecreasingDate } from "../helpers/sortPostsByDecreasingDate";
 
 const page = await getEntry("pages", "accueil-accueillant")!;
+const posts = await getCollection("posts");
+if (page.rendered?.html)
+  page.rendered.html = extendHtml(page.rendered.html, [
+    ["derniers-articles", postsToHtml(sortPostsByDecreasingDate(posts))],
+  ]);
 const { Content } = await render(page);
 ---
 
-<Layout title={page.data.Name}>
+<CustomLayout title={page.data.Name}>
   <Content />
-</Layout>
+</CustomLayout>

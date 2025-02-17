@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
-import Layout from "nebula-atoms-astro/Layout";
+import CustomLayout from "../../layouts/CustomLayout.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -25,6 +25,6 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<Layout title={post.data.Name}>
+<CustomLayout title={post.data.Name}>
   <Content />
-</Layout>
+</CustomLayout>
