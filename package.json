@@ -8,12 +8,13 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "style": "npx sass src/styles/index.scss public/style.css --load-path=node_modules/nebula-atoms-astro/styles"
+    "dev:style": "npx sass styles/index.scss public/style.css --watch",
+    "style": "npx sass styles/index.scss public/style.css"
   },
   "dependencies": {
     "astro": "^5.1.1",
     "nebula-atoms-astro": "file:../nebula-atoms-astro",
-    "nebula-genesis": "^2.0.1",
+    "nebula-genesis": "file:../nebula-genesis",
     "sass": "^1.83.4"
   }
 }
