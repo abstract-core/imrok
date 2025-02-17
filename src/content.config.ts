@@ -19,6 +19,9 @@ const posts = defineCollection({
     "Type de contenu": z.string(),
     Description: z.nullable(z.string()),
     Tags: z.array(z.string()),
+    "Créé le": z.nullable(z.date()),
+    "Publié le": z.nullable(z.date()),
+    "Édité le": z.nullable(z.date()),
   }),
 });
 
