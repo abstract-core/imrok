@@ -1,17 +1,26 @@
 ---
 import Layout from "nebula-atoms-astro/Layout";
 import Navbar from "../components/Navbar.astro";
+import { SINCE, SITE_TITLE } from "../consts";
+import FooterSection from "../components/FooterSection.astro";
+import type { Props as FooterSectionProps } from "../components/FooterSection.astro";
+import { getCollection } from "astro:content";
+import { getCategoriesFromPosts } from "../helpers/getCategoriesFromPosts";
 
-export interface Props {
+interface Props {
   title: string;
 }
+
+const posts = await getCollection("posts");
+const categories = Object.keys(getCategoriesFromPosts(posts));
 
 const { title } = Astro.props;
 ---
 
-<Layout title={title}>
+<Layout pageTitle={title} siteTitle={SITE_TITLE} since={SINCE}>
   <Navbar slot="navbar" />
   <div id="container" class="py-5">
     <slot />
   </div>
+  <FooterSection slot="footer" categories={categories} />
 </Layout>

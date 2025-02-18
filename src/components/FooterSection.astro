@@ -1,0 +1,27 @@
+---
+import { stringToUrl } from "nebula-atoms-astro/stringToUrl";
+
+export interface Props {
+  categories: string[];
+}
+
+const { categories } = Astro.props;
+---
+
+<ul>
+  <li><a href="/">Accueil</a></li>
+  <li>Catégories</li>
+  <li>
+    <ul>
+      {
+        categories.map((category) => (
+          <li>
+            <a href={`/${stringToUrl(category.slice(3))}`}>{category}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </li>
+  <li><a href="/articles">Tous les articles</a></li>
+  <li><a href="/contact">Contact</a></li>
+</ul>
