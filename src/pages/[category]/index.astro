@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import CustomLayout from "../../layouts/CustomLayout.astro";
+import { postsToHtml } from "../../helpers/postsToHtml";
+import { getCategoriesFromPosts } from "../../helpers/getCategoriesFromPosts";
+import { stringToUrl } from "nebula-atoms-astro/stringToUrl";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  const categories = getCategoriesFromPosts(posts);
+  return Object.entries(categories).map(([category, posts]) => ({
+    params: {
+      category: stringToUrl(category.slice(3)),
+    },
+    props: {
+      category,
+      posts,
+    },
+  }));
+}
+
+const { category, posts } = Astro.props;
+const html = postsToHtml(posts);
+---
+
+<CustomLayout title={`Articles | Catégorie ${category}`}>
+  <h1>{category}</h1>
+  <div set:html={html} />
+</CustomLayout>
