@@ -44,6 +44,8 @@ h3 {
 }
 
 #navbar {
+  padding: 4px 16px;
+  width: 100%;
   > img {
     min-width: 800px;
     z-index: -1;
@@ -53,6 +55,7 @@ h3 {
     width: 100%;
   }
   > a {
+    font-size: 2rem;
     color: var(--aibs);
     font-family: "pangaia";
     margin-left: 4.5vw;
@@ -73,7 +76,7 @@ h3 {
 }
 
 p > a,
-footer > a,
+footer a,
 .articles > li > a > :last-child {
   color: var(--aibs);
   font-family: "pangaia";
@@ -97,6 +100,32 @@ h3 {
 footer {
   background: var(--psik);
   margin-top: 5rem;
+  > :first-child {
+    width: 242px;
+    ul {
+      list-style: none;
+      > li {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+      }
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+  > :last-child {
+    width: 388px;
+  }
+}
+
+#footer-site-title {
+  font-family: "pangaia";
+  font-size: 4.5rem;
+  margin: 0 0 3rem;
+}
+#footer-since {
+  font-family: "pangaia";
+  font-size: 1.2rem;
 }
 
 blockquote {
@@ -130,7 +159,7 @@ ul > li {
 }
 
 .articles {
-  padding-left: 16px;
+  padding-left: 0;
   list-style: none;
   margin-bottom: 24px;
   > li {
@@ -149,5 +178,12 @@ ul > li {
         font-size: 1rem;
       }
     }
+  }
+}
+
+@media (max-width: 640px) {
+  .articles > li > a {
+    flex-direction: column;
+    gap: 8px;
   }
 }
