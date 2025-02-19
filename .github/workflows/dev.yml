@@ -4,8 +4,6 @@
 name: dev.imrok.fr CI/CD
 
 on:
-  push:
-    branches: ["main"]
   workflow_dispatch:
     inputs:
       logLevel:
@@ -55,15 +53,16 @@ jobs:
             DATABASE_ID=${{ secrets.DATABASE_ID }} \
             SITE_FOLDER_PATH=. \
             ASTRO_COLLECTION_NAME=pages \
-            ON_OR_AFTER=${{ vars.ON_OR_AFTER }} \
+            REINIT_CACHE=${{ vars.REINIT_CACHE_PAGES }} \
+            ON_OR_AFTER=${{ vars.ON_OR_AFTER_PAGES }} \
             FILTERS='[{ "property": "Contexte", "select": { "equals": "Page" } }]'
           npx genesis \
             NOTION_TOKEN=${{ secrets.NOTION_TOKEN }} \
             DATABASE_ID=${{ secrets.DATABASE_ID }} \
             SITE_FOLDER_PATH=. \
             ASTRO_COLLECTION_NAME=posts \
-            REINIT_CACHE=${{ vars.REINIT_CACHE }} \
-            ON_OR_AFTER=${{ vars.ON_OR_AFTER }} \
+            REINIT_CACHE=${{ vars.REINIT_CACHE_POSTS }} \
+            ON_OR_AFTER=${{ vars.ON_OR_AFTER_POSTS }} \
             FILTERS='[{ "property": "Contexte", "select": { "equals": "Contenu" } }]'
 
       - name: Build website
