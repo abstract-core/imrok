@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import CustomLayout from "../../layouts/CustomLayout.astro";
 import { postsToHtml } from "../../helpers/postsToHtml";
 import { getCategoriesFromPosts } from "../../helpers/getCategoriesFromPosts";
-import { stringToUrl } from "nebula-atoms-astro/stringToUrl";
+import { stringToUrl } from "nebula-atoms/stringToUrl";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 }
 
 const { category, posts } = Astro.props;
-const html = postsToHtml(posts);
+const html = postsToHtml(posts, false);
 ---
 
 <CustomLayout title={`Articles | Catégorie ${category}`}>

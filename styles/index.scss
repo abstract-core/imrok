@@ -1,4 +1,4 @@
-@use "../node_modules/nebula-atoms-astro/styles/core";
+@use "../node_modules/nebula-atoms/styles/core";
 
 :root {
   --deep: #433869;
@@ -101,7 +101,7 @@ footer {
   background: var(--psik);
   margin-top: 5rem;
   > :first-child {
-    width: 242px;
+    width: 262px;
     ul {
       list-style: none;
       > li {
@@ -114,14 +114,14 @@ footer {
     }
   }
   > :last-child {
-    width: 388px;
+    width: 368px;
   }
 }
 
 #footer-site-title {
   font-family: "pangaia";
   font-size: 4.5rem;
-  margin: 0 0 3rem;
+  margin: 1.5rem 0;
 }
 #footer-since {
   font-family: "pangaia";
