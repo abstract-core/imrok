@@ -65,6 +65,9 @@ jobs:
             ON_OR_AFTER=${{ vars.ON_OR_AFTER_POSTS }} \
             FILTERS='[{ "property": "Contexte", "select": { "equals": "Contenu" } }]'
 
+      - name: Build style
+        run: npm run style
+
       - name: Build website
         run: npm run build
 
