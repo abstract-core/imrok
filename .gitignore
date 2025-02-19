@@ -1,5 +1,7 @@
 cache/
-public/**
+public/**/*.*
+!public/fonts/*.*
+!public/banniere.svg
 src/data
 
 # build output
