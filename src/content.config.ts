@@ -18,7 +18,7 @@ const posts = defineCollection({
     Name: z.string(),
     "Type de contenu": z.string(),
     Description: z.nullable(z.string()),
-    Tags: z.array(z.string()),
+    Tags: z.nullable(z.array(z.string())),
     "Créé le": z.nullable(z.date()),
     "Publié le": z.nullable(z.date()),
     "Édité le": z.nullable(z.date()),
