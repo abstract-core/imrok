@@ -1,0 +1,81 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: imrok.fr CI/CD
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: "Log level"
+        required: true
+        default: "warning"
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Enable Notion data cache
+        uses: actions/cache@v4
+        with:
+          key: notion-data-cache
+          path: |
+            ./cache
+            ./src/data
+
+      - name: Enable Notion files cache
+        uses: actions/cache@v4
+        with:
+          key: notion-files-cache
+          path: ./static
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Nebula Genesis
+        run: |
+          npx genesis \
+            NOTION_TOKEN=${{ secrets.NOTION_TOKEN }} \
+            DATABASE_ID=${{ secrets.DATABASE_ID }} \
+            SITE_FOLDER_PATH=. \
+            ASTRO_COLLECTION_NAME=pages \
+            REINIT_CACHE=${{ vars.REINIT_CACHE_PAGES }} \
+            ON_OR_AFTER=${{ vars.ON_OR_AFTER_PAGES }} \
+            FILTERS='[{ "property": "Contexte", "select": { "equals": "Page" } }]'
+          npx genesis \
+            NOTION_TOKEN=${{ secrets.NOTION_TOKEN }} \
+            DATABASE_ID=${{ secrets.DATABASE_ID }} \
+            SITE_FOLDER_PATH=. \
+            ASTRO_COLLECTION_NAME=posts \
+            REINIT_CACHE=${{ vars.REINIT_CACHE_POSTS }} \
+            ON_OR_AFTER=${{ vars.ON_OR_AFTER_POSTS }} \
+            FILTERS='[{ "property": "Contexte", "select": { "equals": "Contenu" } }]'
+
+      - name: Build style
+        run: npm run style
+
+      - name: Build website
+        run: npm run build
+
+      - name: FTP prod environment
+        uses: sebastianpopp/ftp-action@releases/v2
+        with:
+          host: ${{ secrets.FTP_SERVER }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          localDir: ./dist
+          remoteDir: ${{ secrets.FTP_PROD_DIR }}
