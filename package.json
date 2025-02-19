@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "astro": "^5.1.1",
-    "nebula-atoms": "^2.1.0",
+    "nebula-atoms": "^2.1.1",
     "nebula-genesis": "^2.0.4",
     "sass": "^1.83.4"
   }

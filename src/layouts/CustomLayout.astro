@@ -17,7 +17,15 @@ const categories = Object.keys(getCategoriesFromPosts(posts));
 const { title } = Astro.props;
 ---
 
-<Layout pageTitle={title} siteTitle={SITE_TITLE} since={SINCE}>
+<Layout
+  pageTitle={title}
+  siteTitle={SITE_TITLE}
+  since={SINCE}
+  footerIcon={{
+    alt: "A shrine, a tree and a spiral : some of my universe' tokens.",
+    src: "/favicon.svg",
+  }}
+>
   <Navbar slot="navbar" />
   <div id="container" class="py-5">
     <slot />
