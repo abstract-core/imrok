@@ -1,15 +1,14 @@
 ---
 import { getCollection, render } from "astro:content";
 import CustomLayout from "../../layouts/CustomLayout.astro";
+import { refineCategory } from "../../helpers/refineCategory";
+import { stringToUrl } from "nebula-atoms/stringToUrl";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
   return posts.map((post) => ({
     params: {
-      category: post.data["Type de contenu"]
-        .slice(3)
-        .toLowerCase()
-        .replace(/é/g, "e"),
+      category: stringToUrl(refineCategory(post.data["Type de contenu"])),
       slug: post.data.slug,
     },
     props: {

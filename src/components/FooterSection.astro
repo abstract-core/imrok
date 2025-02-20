@@ -1,5 +1,6 @@
 ---
 import { stringToUrl } from "nebula-atoms/stringToUrl";
+import { refineCategory } from "../helpers/refineCategory";
 
 export interface Props {
   categories: string[];
@@ -16,7 +17,7 @@ const { categories } = Astro.props;
       {
         categories.map((category) => (
           <li>
-            <a href={`/${stringToUrl(category.slice(3))}`}>{category}</a>
+            <a href={`/${stringToUrl(refineCategory(category))}`}>{category}</a>
           </li>
         ))
       }

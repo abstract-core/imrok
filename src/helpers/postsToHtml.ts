@@ -2,6 +2,7 @@ import type { InferEntrySchema } from "astro:content";
 import { stringToUrl } from "nebula-atoms/stringToUrl";
 import { dateToString } from "nebula-atoms/dateToString";
 import { getDate } from "./getDate";
+import { refineCategory } from "./refineCategory";
 
 export function postsToHtml(
   posts: { data: InferEntrySchema<"posts"> }[],
@@ -13,9 +14,7 @@ export function postsToHtml(
         data: post as InferEntrySchema<"posts">,
       });
       return `<li><a href="
-          /${category.slice(3).toLowerCase().replace(/é/g, "e")}/${
-        slug || stringToUrl(Name)
-      }
+          /${stringToUrl(refineCategory(category))}/${slug || stringToUrl(Name)}
         "> <span>${
           displayCategory
             ? `<span>${category.replace(/\s/g, "&nbsp;")}</span>`

@@ -10,7 +10,7 @@ export async function getStaticPaths() {
   const categories = getCategoriesFromPosts(posts);
   return Object.entries(categories).map(([category, posts]) => ({
     params: {
-      category: stringToUrl(category.slice(3)),
+      category: stringToUrl(stringToUrl(category)),
     },
     props: {
       category,

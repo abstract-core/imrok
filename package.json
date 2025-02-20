@@ -1,7 +1,7 @@
 {
-  "name": "imrok-astro",
+  "name": "imrok",
   "type": "module",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "scripts": {
     "start": "astro dev",
     "dev": "astro dev",
