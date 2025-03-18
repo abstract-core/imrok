@@ -34,8 +34,8 @@ jobs:
         with:
           key: notion-data-cache
           path: |
-            ./cache
-            ./src/data
+            ../../cache
+            ../../src/data
 
       - name: Enable Notion files cache
         uses: actions/cache@v4
